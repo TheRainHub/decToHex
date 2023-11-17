@@ -1,0 +1,25 @@
+def list_operations(numbers):
+
+    if not all(isinstance(num, int) or (isinstance(num, float) and num.is_integer()) for num in numbers):
+        return None, None
+
+    numbers = [int(num) for num in numbers]
+
+    cout = 0
+
+    for num in numbers:
+
+        if num > 1:
+            for i in range(2,num):
+                if(num % i) == 0:
+                    break
+            else:
+                cout += num
+
+    orig_num = []
+    for num in numbers:
+        if num not in orig_num:
+            orig_num.append(num)
+
+
+    return cout, orig_num
