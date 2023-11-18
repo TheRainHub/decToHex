@@ -1,0 +1,34 @@
+def analyze_transactions(transactions):
+    
+    if not transactions:
+        return {'total_revenue': 0, 'total_spending_per_user': {}, 'products_by_user': {}} #sorry for this)ahahah :)
+        
+    total_revenue = 0
+    total_spending_per_user = {}
+    products_by_user = {}
+
+    for transaction in transactions:
+        user = transaction.get('user')
+        product = transaction.get('product')
+        quantity = transaction.get('quantity')
+        price = transaction.get('price')
+
+        if None in (user, product, quantity, price):
+            return None
+
+        if not (isinstance(quantity, (int, float)) and isinstance(price, (int, float)) and quantity % 1 == 0 and quantity > 0 and price > 0):
+            return None
+
+        total_revenue += quantity * price
+        total_spending_per_user[user] = total_spending_per_user.get(user, 0) + quantity * price
+        products_by_user.setdefault(user, set()).add(product)
+
+    result = {
+        'total_revenue': total_revenue,
+        'total_spending_per_user': total_spending_per_user,
+        'products_by_user': products_by_user
+    }
+
+    return result
+
+    raise NotImplementedError()
